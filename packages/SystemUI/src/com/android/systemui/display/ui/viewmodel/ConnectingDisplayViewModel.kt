@@ -323,6 +323,6 @@ constructor(
     private companion object {
         const val TAG: String = "ConnectingDisplayViewModel"
         private const val DISABLE_MIRRORING_CONFIRMATION_DIALOG =
-            "persist.sysui.disable_mirroring_confirmation_dialog"
+            "persist.sys.disable_mirroring_confirmation_dialog"
     }
 }
