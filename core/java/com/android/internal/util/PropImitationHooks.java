@@ -40,7 +40,6 @@ public class PropImitationHooks {
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
     private static final String PACKAGE_AIWALLPAPERS = "com.google.android.apps.aiwallpapers";
-    private static final String PACKAGE_ARCORE = "com.google.ar.core";
     private static final String PACKAGE_NETFLIX = "com.netflix.mediaclient";
     private static final String PACKAGE_GPHOTOS = "com.google.android.apps.photos";
 
@@ -95,7 +94,7 @@ public class PropImitationHooks {
                     "PIXEL_2025_EXPERIENCE",
                     "PIXEL_2025_MIDYEAR_EXPERIENCE");
 
-    private static volatile String sStockFp, sNetflixModel;
+    private static volatile String sNetflixModel;
 
     private static volatile boolean sIsPhotos;
 
@@ -137,20 +136,15 @@ public class PropImitationHooks {
             return;
         }
 
-        sStockFp = res.getString(R.string.config_stockFingerprint);
         sNetflixModel = res.getString(R.string.config_netflixSpoofModel);
 
         sIsPhotos = packageName.equals(PACKAGE_GPHOTOS);
 
-        /* Set Stock Fingerprint for ARCore
-         * Set custom model for Netflix
+        /* Set custom model for Netflix
          * Set Pixel XL for Google Photos
          * Set  Pixel 10 Pro for AI Wallpapers
          */
-        if (!sStockFp.isEmpty() && packageName.equals(PACKAGE_ARCORE)) {
-            dlog("Setting stock fingerprint for: " + packageName);
-            setPropValue("FINGERPRINT", sStockFp);
-        } else if (sIsPhotos) {
+        if (sIsPhotos) {
             dlog("Spoofing Pixel 1 for Google Photos");
             sPixelOneProps.forEach((PropImitationHooks::setPropValue));
         } else if (!sNetflixModel.isEmpty() && packageName.equals(PACKAGE_NETFLIX)) {
