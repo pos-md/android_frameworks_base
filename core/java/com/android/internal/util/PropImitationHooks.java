@@ -39,6 +39,7 @@ public class PropImitationHooks {
     private static final String TAG = "PropImitationHooks";
     private static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
 
+    private static final String PACKAGE_AIWALLPAPERS = "com.google.android.apps.aiwallpapers";
     private static final String PACKAGE_ARCORE = "com.google.ar.core";
     private static final String PACKAGE_NETFLIX = "com.netflix.mediaclient";
     private static final String PACKAGE_GPHOTOS = "com.google.android.apps.photos";
@@ -55,6 +56,18 @@ public class PropImitationHooks {
                     "MODEL", "Pixel",
                     "FINGERPRINT",
                             "google/sailfish/sailfish:10/QP1A.191005.007.A3/5972272:user/release-keys");
+
+    private static final Map<String, String> sPixelTenProps =
+            Map.of(
+                    "PRODUCT", "blazer",
+                    "DEVICE", "blazer",
+                    "HARDWARE", "blazer",
+                    "MANUFACTURER", "Google",
+                    "BRAND", "google",
+                    "MODEL", "Pixel 10 Pro",
+                    "ID", "CP2A.260605.012",
+                    "FINGERPRINT",
+                            "google/blazer/blazer:17/CP2A.260605.012/15430684:user/release-keys");
 
     private static final Set<String> sPixelFeatures =
             Set.of(
@@ -132,6 +145,7 @@ public class PropImitationHooks {
         /* Set Stock Fingerprint for ARCore
          * Set custom model for Netflix
          * Set Pixel XL for Google Photos
+         * Set  Pixel 10 Pro for AI Wallpapers
          */
         if (!sStockFp.isEmpty() && packageName.equals(PACKAGE_ARCORE)) {
             dlog("Setting stock fingerprint for: " + packageName);
@@ -142,6 +156,9 @@ public class PropImitationHooks {
         } else if (!sNetflixModel.isEmpty() && packageName.equals(PACKAGE_NETFLIX)) {
             dlog("Setting model to " + sNetflixModel + " for Netflix");
             setPropValue("MODEL", sNetflixModel);
+        } else if (packageName.equals(PACKAGE_AIWALLPAPERS)) {
+            dlog("Spoofing Pixel 10 Pro for AI Wallpapers");
+            sPixelTenProps.forEach(PropImitationHooks::setPropValue);
         }
     }
 
