@@ -431,6 +431,7 @@ public class ComputerEngine implements Computer {
     private static final String AURORA_SERVICES = "com.aurora.services";
     private static final String AURORA_STORE = "com.aurora.store";
     private static final String PLAY_STORE = "com.android.vending";
+    private static final String UNIVERSAL_INSTALLER = "app.pwhs.universalinstaller";
 
     // PackageManagerService attributes that are primitives are referenced through the
     // pms object directly.  Primitives are the only attributes so referenced.
@@ -5199,7 +5200,8 @@ public class ComputerEngine implements Computer {
                 && mSettings.getPackage(PLAY_STORE) != null
                 && callingUid != Process.SYSTEM_UID
                 && (AURORA_STORE.equals(installerPackageName)
-                || AURORA_SERVICES.equals(installerPackageName))) {
+                || AURORA_SERVICES.equals(installerPackageName)
+                || UNIVERSAL_INSTALLER.equals(installerPackageName))) {
             return InstallSource.create(PLAY_STORE, PLAY_STORE, PLAY_STORE,
                             installSource.mInstallerPackageUid, // FIXME: likely wrong
                             installSource.mInstallerPackageUid, // FIXME: likely wrong
@@ -5256,7 +5258,8 @@ public class ComputerEngine implements Computer {
             }
         }
 
-        if ("com.aurora.store".equals(installerPackageName)) {
+        if ("com.aurora.store".equals(installerPackageName)
+                || "app.pwhs.universalinstaller".equals(installerPackageName)) {
             installerPackageName = "com.android.vending";
         }
 
